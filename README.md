@@ -18,6 +18,20 @@ In a `command prompt` or a `shell prompt`:
 2. `cd target`
 3. `java -jar prices-rest-api-1.0.0-SNAPSHOT.jar`
 
+### Log configuration
+
+If we want to change log file path or log level we must create an `application.properties` file nex to `prices-rest-api-1.0.0-SNAPSHOT.jar` and configure next `properties`:
+
+* `logging.file.name`: Directory and file name for the Log.
+* `logging.level.ga.ferpinan`: Log level
+
+Example:
+
+```
+logging.file.name=/home/logs/lim-ais-aidx-transform.log
+logging.level.ga.ferpinan=INFO
+```
+
 ### Examples URL-s
 
 * http://localhost:8080/api/price/1/35455?date=2020-06-14T13:00:00Z
