@@ -3,6 +3,7 @@ package ga.ferpinan.pricesrestapi.controller;
 import ga.ferpinan.pricesrestapi.dto.PriceDto;
 import ga.ferpinan.pricesrestapi.service.PriceService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/price")
 @RequiredArgsConstructor
+@Log4j2
 public class PriceController {
 
 	private final PriceService priceService;
@@ -32,6 +34,7 @@ public class PriceController {
             @PathVariable(value = "productId") @Valid @NotNull Long productId,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam(value = "date") @Valid @NotNull LocalDateTime dateBetweenStartAndEndDate
     ) {
+	    log.debug("PriceController::findPriorPrice -> Called with brandId {}, productId {} and date {}", brandId, productId, dateBetweenStartAndEndDate);
 		return priceService.findPriorPrice(brandId, productId, dateBetweenStartAndEndDate).toDto();
 	}
 
