@@ -1,4 +1,5 @@
 target/
+/docker-resources/logs-docker/prices-rest-api.log
 
 ### IntelliJ IDEA ###
 .idea

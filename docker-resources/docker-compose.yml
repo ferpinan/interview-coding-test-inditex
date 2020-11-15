@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+    prices-rest-api:
+        container_name: "prices-rest-api"
+        build:
+            context: ../.
+        ports:
+            - 8080:8080
+        volumes:
+            - ./logs-docker:/home/logs
+        environment:
+            - TZ=Europe/Madrid
+            - LANG=en_GB.UTF-8
