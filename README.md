@@ -34,6 +34,8 @@ logging.level.ga.ferpinan=INFO
 
 ### Examples URL-s
 
+* http://localhost:8080/swagger-ui.html
+* http://localhost:8080/v3/api-docs/
 * http://localhost:8080/api/price/1/35455?date=2020-06-14T13:00:00Z
 * http://localhost:8080/api/price/1/35455?date=2019-06-14T13:00:00Z
 * http://localhost:8080/api/price/2/35455?date=2020-06-14T13:00:00Z

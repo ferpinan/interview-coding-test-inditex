@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Clase que implementa los métodos expuestos en la interfaz RoleService
+ * Service for the management of prices
  */
 @Service
 @RequiredArgsConstructor
@@ -22,6 +22,14 @@ public class PriceService {
 
 	private final PriceRepository priceRepository;
 
+    /**
+     * Finds in the repository the price of a product by its id and brand's id on the given date
+     * @param brandId Id of the brand
+     * @param productId Id of the product
+     * @param dateBetweenStartAndEndDate Date of the price to apply to the product
+     * @return Returns the price with most priority in the given date for provided brandId and productId.
+     * @throws PriceNotFoundException if price was not found
+     */
 	@Transactional
 	public Price findPriorPrice(Long brandId, Long productId, LocalDateTime dateBetweenStartAndEndDate) {
         log.debug("PriceService::findPriorPrice -> Called with brandId {}, productId {} and date {}", brandId, productId, dateBetweenStartAndEndDate);
