@@ -5,7 +5,15 @@
         {
             "dnsSearchDomains": null,
             "environmentFiles": null,
-            "logConfiguration": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/prices-rest-api",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
             "entryPoint": null,
             "portMappings": [
                 {
@@ -29,7 +37,7 @@
             "memoryReservation": null,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "133583865329.dkr.ecr.eu-central-1.amazonaws.com/prices-rest-api",
+            "image": "133583865329.dkr.ecr.eu-central-1.amazonaws.com/prices-rest-api:cdda12d0769e81949aa72d9b61a56270cac670a8",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": null,
@@ -50,19 +58,31 @@
         }
     ],
     "placementConstraints": [],
-    "memory": "128",
+    "memory": "384",
     "taskRoleArn": null,
     "compatibilities": [
         "EC2"
     ],
-    "taskDefinitionArn": "arn:aws:ecs:eu-central-1:133583865329:task-definition/prices-rest-api:1",
+    "taskDefinitionArn": "arn:aws:ecs:eu-central-1:133583865329:task-definition/prices-rest-api:7",
     "family": "prices-rest-api",
     "requiresAttributes": [
         {
             "targetId": null,
             "targetType": null,
             "value": null,
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
             "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         }
     ],
     "pidMode": null,
@@ -71,7 +91,7 @@
     ],
     "networkMode": null,
     "cpu": "256",
-    "revision": 1,
+    "revision": 7,
     "status": "ACTIVE",
     "inferenceAccelerators": null,
     "proxyConfiguration": null,
