@@ -74,7 +74,7 @@ public class PriceController {
             @PathVariable(value = "brandId") @Valid @NotNull Long brandId,
             @Parameter(name = "productId", description = "Id of the product", example = "35455", required = true)
             @PathVariable(value = "productId") @Valid @NotNull Long productId,
-            @Parameter(name = "dateBetweenStartAndEndDate", description = "Date of the price to apply to the product", example = "2020-06-14T13:00:00Z", required = true)
+            @Parameter(name = "date", description = "Date of the price to apply to the product", example = "2020-06-14T13:00:00Z", required = true)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam(value = "date") @Valid @NotNull LocalDateTime dateBetweenStartAndEndDate
     ) {
         log.debug("PriceController::findPriorPrice -> Called with brandId {}, productId {} and date {}", brandId, productId, dateBetweenStartAndEndDate);
