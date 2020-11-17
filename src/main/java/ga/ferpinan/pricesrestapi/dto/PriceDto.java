@@ -45,10 +45,10 @@ public class PriceDto implements Serializable {
     @NotEmpty
     private Long productId;
 
-    @Schema(description = "Price of the product", example = "34.55")
+    @Schema(description = "Value of the product", example = "34.55")
     @NotNull
     @NotEmpty
-    private BigDecimal price;
+    private BigDecimal value;
 
     @Schema(description = "Currency for the price", example = "EUR", required = true)
     @NotNull

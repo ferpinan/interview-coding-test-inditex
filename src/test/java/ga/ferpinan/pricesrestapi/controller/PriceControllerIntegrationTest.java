@@ -2,10 +2,7 @@ package ga.ferpinan.pricesrestapi.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import ga.ferpinan.pricesrestapi.dto.PriceDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -27,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PriceControllerIntegrationTest {
+class PriceControllerIntegrationTest {
 
     private static final long BRAND_ID = 1L;
     private static final long PRODUCT_ID = 35455;
@@ -36,7 +32,6 @@ public class PriceControllerIntegrationTest {
     private static final long NON_EXISTING_PRODUCT = 1111L;
     private static final long NON_EXISTING_BRAND = 55L;
 
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -44,12 +39,8 @@ public class PriceControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-            @Override
-            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-                return LocalDateTime.parse(json.getAsJsonPrimitive().getAsString());
-            }
-        }).create();;
+        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) ->
+                LocalDateTime.parse(json.getAsJsonPrimitive().getAsString())).create();
     }
 
     @Test
@@ -158,6 +149,7 @@ public class PriceControllerIntegrationTest {
 
         assertEquals(HttpServletResponse.SC_NOT_FOUND, result.getResponse().getStatus());
     }
+
     @Test
     void whenFindPrior_withDateAfterAnyExisting_thenReturnNotFound() throws Exception {
         String url = String.format(PRIOR_PRICE_URL_TEMPLATE, BRAND_ID, PRODUCT_ID, "2021-06-14T13:00:00Z");
@@ -197,7 +189,7 @@ public class PriceControllerIntegrationTest {
         assertEquals(LocalDateTime.parse("2020-12-31T23:59:59"), priceDto.getEndDate());
         assertEquals(1, priceDto.getPriceList());
         assertEquals(PRODUCT_ID, priceDto.getProductId());
-        assertEquals(BigDecimal.valueOf(35.5), priceDto.getPrice());
+        assertEquals(BigDecimal.valueOf(35.5), priceDto.getValue());
         assertEquals(EUR_CURRENCY, priceDto.getCurrency());
     }
 
@@ -207,7 +199,7 @@ public class PriceControllerIntegrationTest {
         assertEquals(LocalDateTime.parse("2020-06-14T18:30:00"), priceDto.getEndDate());
         assertEquals(2, priceDto.getPriceList());
         assertEquals(PRODUCT_ID, priceDto.getProductId());
-        assertEquals(BigDecimal.valueOf(25.45), priceDto.getPrice());
+        assertEquals(BigDecimal.valueOf(25.45), priceDto.getValue());
         assertEquals(EUR_CURRENCY, priceDto.getCurrency());
     }
 
@@ -217,7 +209,7 @@ public class PriceControllerIntegrationTest {
         assertEquals(LocalDateTime.parse("2020-06-15T11:00:00"), priceDto.getEndDate());
         assertEquals(3, priceDto.getPriceList());
         assertEquals(PRODUCT_ID, priceDto.getProductId());
-        assertEquals(BigDecimal.valueOf(30.5), priceDto.getPrice());
+        assertEquals(BigDecimal.valueOf(30.5), priceDto.getValue());
         assertEquals(EUR_CURRENCY, priceDto.getCurrency());
     }
 
@@ -227,7 +219,7 @@ public class PriceControllerIntegrationTest {
         assertEquals(LocalDateTime.parse("2020-12-31T23:59:59"), priceDto.getEndDate());
         assertEquals(4, priceDto.getPriceList());
         assertEquals(PRODUCT_ID, priceDto.getProductId());
-        assertEquals(BigDecimal.valueOf(38.95), priceDto.getPrice());
+        assertEquals(BigDecimal.valueOf(38.95), priceDto.getValue());
         assertEquals(EUR_CURRENCY, priceDto.getCurrency());
     }
 }

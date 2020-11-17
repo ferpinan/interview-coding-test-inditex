@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 public class Price implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "price_list_id_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "price_list_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "price_list_id_seq")
     @Column(name = "PRICE_LIST", unique = true, nullable = false)
     private Long priceList;
@@ -65,7 +65,7 @@ public class Price implements Serializable {
     @Column(name = "PRICE", nullable = false)
     @NotNull
     @NotEmpty
-    private BigDecimal price;
+    private BigDecimal value;
 
     @Column(name = "CURRENCY", length = 20, nullable = false)
     @Size(max = 20)
@@ -78,7 +78,7 @@ public class Price implements Serializable {
                 .startDate(startDate)
                 .endDate(endDate)
                 .productId(productId)
-                .price(price)
+                .value(value)
                 .currency(currency)
                 .build();
     }

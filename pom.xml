@@ -10,7 +10,7 @@
     </parent>
     <groupId>ga.ferpinan</groupId>
     <artifactId>prices-rest-api</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>prices-rest-api</name>
     <description>Prices Rest Api</description>
 

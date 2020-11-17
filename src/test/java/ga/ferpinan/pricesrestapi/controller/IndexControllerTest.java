@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(IndexController.class)
-public class IndexControllerTest {
+class IndexControllerTest {
 
     @Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	public void testIndexController() throws Exception {
+	void testIndexController() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(status().isFound()).andReturn();
 		assertEquals(HttpServletResponse.SC_FOUND, result.getResponse().getStatus());
 	}
