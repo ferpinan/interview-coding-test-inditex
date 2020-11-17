@@ -1,0 +1,8 @@
+target/
+/docker-resources/logs-docker/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
