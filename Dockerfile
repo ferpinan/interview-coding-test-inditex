@@ -4,7 +4,7 @@ COPY /src /home/prices-rest-api/src
 COPY pom.xml /home/prices-rest-api/
 RUN mvn clean package -DfinalName=prices-rest-api
 
-FROM openjdk:11-jre-slim
+FROM openjdk:8-jre-slim
 VOLUME /home/logs
 COPY /docker-resources/config/application.properties /home/application.properties
 COPY --from=builder /home/prices-rest-api/target/prices-rest-api.jar /home/prices-rest-api.jar

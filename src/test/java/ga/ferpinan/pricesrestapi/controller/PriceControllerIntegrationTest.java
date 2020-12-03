@@ -39,6 +39,7 @@ class PriceControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        // this configuration will make gson parse LocalDateTime object
         gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) ->
                 LocalDateTime.parse(json.getAsJsonPrimitive().getAsString())).create();
     }

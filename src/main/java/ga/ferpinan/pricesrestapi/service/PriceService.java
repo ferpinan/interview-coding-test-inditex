@@ -31,15 +31,15 @@ public class PriceService {
      * @throws PriceNotFoundException if price was not found
      */
 	@Transactional
-	public Price findPriorPrice(Long brandId, Long productId, LocalDateTime dateBetweenStartAndEndDate) {
+	public Price findPriorPrice(Long brandId, Long productId, LocalDateTime dateBetweenStartAndEndDate) throws PriceNotFoundException{
         log.debug("PriceService::findPriorPrice -> Called with brandId {}, productId {} and date {}", brandId, productId, dateBetweenStartAndEndDate);
         List<Price> priorPriceList = priceRepository.findPriorPriceList(brandId, productId, dateBetweenStartAndEndDate, PageRequest.of(0, 1));
-        if(priorPriceList.isEmpty()){
-            String errorMessage = String.format("PriceService::findPriorPrice -> Price for brand %s, product %s for date %s not found", brandId, productId, dateBetweenStartAndEndDate);
-            log.error(errorMessage);
-            throw new PriceNotFoundException(errorMessage);
-        }
-        return priorPriceList.get(0);
+        return priorPriceList.stream()
+                .findFirst()
+                .<PriceNotFoundException>orElseThrow(() -> {
+                    String errorMessage = String.format("PriceService::findPriorPrice -> Price for brand %s, product %s for date %s not found", brandId, productId, dateBetweenStartAndEndDate);
+                    log.error(errorMessage);
+                    throw new PriceNotFoundException(errorMessage);
+                });
 	}
-
 }
